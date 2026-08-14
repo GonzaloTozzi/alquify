@@ -6,7 +6,7 @@
 
 **Proyecto:** Alquify — Sistema de Gestión de Alquileres Temporarios
 **Integrantes:** Vallejos Emiliano V. - Tozzi Gonzalo
-**Carrera:** Tecnicatura Universitaria en Programación
+**Carrera:** Tecnicatura Universitaria en Programación a Distancia
 **Tutor:** Bruselario Sebastián
 
 ---
