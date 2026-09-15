@@ -152,15 +152,11 @@ La información será intercambiada principalmente utilizando el formato JSON.
 
 ## 8. Despliegue
 
-Como parte de los requisitos del Trabajo Final Integrador, el proyecto contará con al menos uno de sus componentes principales desplegado en un servicio online.
+Para el despliegue online del sistema se utilizarán distintas plataformas de acuerdo con las características de cada componente de la aplicación.
 
-Se evaluarán diferentes alternativas de alojamiento para:
+El **frontend**, desarrollado con React y TypeScript, será desplegado en **Vercel**. El **backend**, desarrollado con Java y Spring Boot, será alojado en **Render**, donde se ejecutará la API REST de la aplicación. Por último, la base de datos **MySQL** será alojada mediante **Aiven**.
 
-* Frontend.
-* Backend.
-* Base de datos.
-
-Las plataformas definitivas serán seleccionadas durante el desarrollo teniendo en cuenta compatibilidad con las tecnologías utilizadas, disponibilidad de planes adecuados para el proyecto y facilidad de implementación.
+Esta distribución permitirá mantener separados los componentes principales de la arquitectura y establecer la comunicación entre el frontend, la API REST y la base de datos.
 
 ---
 
