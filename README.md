@@ -1,8 +1,8 @@
-#  Alquify
+# Alquify
 
 ## Sistema de Gestión de Alquileres Temporarios
 
-### Trabajo Final Integrador — 1.ª Entrega
+### Trabajo Final Integrador
 
 **Proyecto:** Alquify — Sistema de Gestión de Alquileres Temporarios  
 **Integrantes:** Vallejos Emiliano V. - Tozzi Gonzalo  
@@ -11,23 +11,33 @@
 
 ---
 
-## 1. Nombre del proyecto
-
-### Alquify — Sistema de Gestión de Alquileres Temporarios
+## 1. Descripción del proyecto
 
 Alquify será una aplicación web destinada a facilitar y centralizar la administración de propiedades destinadas a alquileres temporarios.
 
+El sistema estará orientado a propietarios o administradores que necesiten gestionar desde un único lugar sus propiedades, clientes, huéspedes, reservas, disponibilidad y pagos.
+
+El objetivo del proyecto no es desarrollar una plataforma pública de intermediación de alojamientos similar a Airbnb o Booking, sino una herramienta de gestión administrativa para los alquileres administrados por cada usuario.
+
 ---
 
-## 2. Descripción del problema
+## 2. Problemática
 
 La administración de alquileres temporarios puede involucrar el manejo simultáneo de diferentes propiedades, clientes, empresas, huéspedes, períodos de ocupación y pagos.
 
 Cuando esta información se administra mediante diferentes herramientas, como planillas de cálculo, calendarios, mensajes de WhatsApp o anotaciones manuales, pueden surgir dificultades para mantener la información organizada y actualizada.
 
-Entre los principales problemas se encuentran la dificultad para conocer rápidamente la disponibilidad de cada propiedad, el seguimiento de las reservas, la posibilidad de generar reservas superpuestas, el control de los huéspedes alojados y el seguimiento de los pagos realizados o pendientes.
+Entre los principales problemas identificados se encuentran:
 
-A partir de esta problemática se propone desarrollar un sistema web que permita centralizar la información y simplificar la gestión de alquileres temporarios.
+- Dificultad para conocer rápidamente la disponibilidad de cada propiedad.
+- Seguimiento de las reservas.
+- Posibilidad de generar reservas superpuestas.
+- Control de los huéspedes alojados.
+- Seguimiento de los pagos realizados y pendientes.
+- Consulta de próximas entradas y salidas.
+- Información distribuida entre diferentes herramientas.
+
+A partir de esta problemática se propone desarrollar Alquify como un sistema web que permita centralizar la información y simplificar la gestión de alquileres temporarios.
 
 ---
 
@@ -41,46 +51,76 @@ El sistema buscará proporcionar al administrador una herramienta sencilla para 
 
 ## 4. Objetivos específicos
 
-* Centralizar la información de las propiedades administradas.
-* Registrar clientes particulares y empresas.
-* Registrar los huéspedes asociados a cada estadía.
-* Crear y administrar reservas.
-* Consultar la disponibilidad de las propiedades según determinadas fechas.
-* Evitar la superposición de reservas para una misma propiedad.
-* Registrar y consultar pagos asociados a los alquileres.
-* Consultar próximas entradas y salidas de huéspedes.
-* Mantener un historial de reservas realizadas.
-* Presentar información general mediante un panel de administración.
+- Centralizar la información de las propiedades administradas.
+- Registrar clientes particulares y empresas.
+- Registrar los huéspedes asociados a cada estadía.
+- Crear y administrar reservas.
+- Consultar la disponibilidad de las propiedades según fecha y hora.
+- Evitar la superposición de reservas para una misma propiedad.
+- Registrar y consultar pagos asociados a los alquileres.
+- Consultar próximas entradas y salidas.
+- Mantener un historial de reservas realizadas.
+- Presentar información general mediante un panel administrativo.
 
 ---
 
 ## 5. Alcance del proyecto
 
-Alquify estará orientado principalmente a la **gestión administrativa de alquileres temporarios**.
+Alquify estará orientado principalmente a la gestión administrativa de alquileres temporarios.
 
-El sistema permitirá que un administrador gestione las propiedades disponibles y registre las reservas correspondientes a clientes particulares o empresas.
+Cada usuario dispondrá de una cuenta desde la cual podrá administrar su propia información.
 
-Cada reserva contará con información relacionada con la propiedad seleccionada, período de ocupación, cliente responsable y huéspedes alojados. El sistema verificará la disponibilidad de la propiedad para evitar reservas superpuestas.
+El sistema permitirá gestionar:
 
-También se podrá realizar un seguimiento de los pagos asociados a cada alquiler y consultar información general sobre las propiedades ocupadas, disponibles y próximas reservas.
+- Propiedades.
+- Clientes.
+- Huéspedes.
+- Reservas.
+- Disponibilidad.
+- Pagos.
 
-Como parte de la interfaz administrativa se buscará incorporar una visualización de la ocupación de las propiedades que permita identificar fácilmente los períodos reservados y disponibles.
+Cada reserva estará asociada a una propiedad y a un cliente responsable, y podrá incluir uno o varios huéspedes.
 
-El objetivo del proyecto **no es desarrollar una plataforma pública de intermediación de alojamientos similar a Airbnb o Booking**, sino una herramienta de gestión destinada al propietario o administrador de los alquileres.
+La disponibilidad será determinada teniendo en cuenta tanto la fecha como la hora de entrada y salida de las reservas existentes.
+
+También se podrá realizar un seguimiento de los pagos asociados a cada reserva y consultar información general sobre propiedades ocupadas, disponibles y próximas reservas.
+
+La primera versión de Alquify no contemplará:
+
+- Diferentes roles o niveles de permisos.
+- Procesamiento de pagos dentro de la aplicación.
+- Integración con pasarelas de pago.
+- Una plataforma pública para publicación o búsqueda de alojamientos.
 
 ---
 
-## 6. Tecnologías propuestas
+## 6. Módulos principales
 
-Para el desarrollo del proyecto se propone utilizar una arquitectura web separando el frontend, el backend y la persistencia de datos.
+Alquify estará organizado inicialmente en los siguientes módulos:
+
+1. Autenticación y usuarios.
+2. Gestión de propiedades.
+3. Gestión de clientes.
+4. Gestión de huéspedes.
+5. Gestión de reservas.
+6. Gestión de pagos.
+7. Panel administrativo.
+
+La descripción detallada de cada módulo se encuentra disponible en:
+
+[Documentación de módulos](docs/modulos.md)
+
+---
+
+## 7. Tecnologías propuestas
 
 ### Frontend
 
 **React + TypeScript**
 
-React permitirá desarrollar una interfaz web dinámica basada en componentes reutilizables. Se utilizará TypeScript para agregar tipado estático al desarrollo y mejorar la organización y mantenibilidad del código.
+React será utilizado para desarrollar la interfaz web mediante componentes reutilizables.
 
-Estas tecnologías serán utilizadas para desarrollar las diferentes interfaces del sistema, como la administración de propiedades, reservas, clientes, pagos y visualización de disponibilidad.
+TypeScript permitirá incorporar tipado estático y mejorar la organización y mantenibilidad del código.
 
 ### Backend
 
@@ -88,50 +128,40 @@ Estas tecnologías serán utilizadas para desarrollar las diferentes interfaces 
 
 El backend será desarrollado utilizando Java y Spring Boot.
 
-Spring Boot permitirá desarrollar una API REST encargada de gestionar la comunicación entre el frontend y la base de datos, además de implementar las principales reglas de negocio del sistema.
-
-Entre ellas se encontrará la validación de disponibilidad de las propiedades, administración de reservas, gestión de usuarios y procesamiento de la información relacionada con los alquileres.
-
-Se utilizará una arquitectura organizada en diferentes capas con el objetivo de separar responsabilidades y facilitar el mantenimiento del proyecto.
+Será responsable de exponer una API REST, procesar las solicitudes del frontend, aplicar las reglas de negocio y gestionar el acceso a la información.
 
 ### Persistencia
 
-**Spring Data JPA / Hibernate**
+**Spring Data JPA + Hibernate**
 
-Para la comunicación entre el backend y la base de datos se utilizará Spring Data JPA junto con Hibernate.
-
-Esto permitirá realizar el mapeo entre los objetos utilizados dentro de la aplicación y las tablas almacenadas en la base de datos.
+Spring Data JPA y Hibernate serán utilizados para gestionar la comunicación entre el backend y la base de datos relacional.
 
 ### Base de datos
 
 **MySQL**
 
-Se utilizará una base de datos relacional MySQL debido a que la información administrada por el sistema presenta relaciones claramente definidas entre propiedades, clientes, reservas, huéspedes y pagos.
+Se utilizará MySQL como sistema de gestión de base de datos relacional.
 
-MySQL permitirá utilizar relaciones entre tablas, claves primarias y foráneas, restricciones, transacciones y consultas para garantizar la integridad de la información.
-
-Además, es una tecnología previamente utilizada por los integrantes del equipo, lo que permitirá reducir los tiempos de aprendizaje y concentrar el trabajo en el desarrollo de las funcionalidades específicas del proyecto.
+La elección responde a la existencia de relaciones claramente definidas entre usuarios, propiedades, clientes, huéspedes, reservas y pagos.
 
 ### Control de versiones
 
 **Git + GitHub**
 
-Se utilizará Git para el control de versiones y GitHub como repositorio remoto y herramienta de colaboración entre los integrantes.
+Git será utilizado para el control de versiones y GitHub como repositorio remoto y herramienta de colaboración.
 
-Todo el proyecto será desarrollado dentro de un único repositorio.
+La documentación del proyecto se mantendrá principalmente mediante archivos de texto versionables dentro del mismo repositorio.
 
 ---
 
-## 7. Arquitectura general propuesta
+## 8. Arquitectura general
 
-La aplicación seguirá inicialmente la siguiente estructura general:
+Alquify utilizará una arquitectura web basada en la separación entre frontend, backend y base de datos.
 
 ```text
 React + TypeScript
        │
-       ▼
-    API REST
-       │
+       │ HTTP / JSON
        ▼
 Java + Spring Boot
        │
@@ -142,100 +172,227 @@ Spring Data JPA / Hibernate
       MySQL
 ```
 
-El frontend realizará solicitudes HTTP al backend mediante una API REST.
+El frontend será responsable de la presentación y de la interacción con el usuario.
 
-El backend será responsable de procesar las solicitudes, aplicar las reglas de negocio correspondientes y comunicarse con la base de datos.
+El backend concentrará la lógica de negocio, las validaciones y el acceso a la información.
 
-La información será intercambiada principalmente utilizando el formato JSON.
+La comunicación entre frontend y backend se realizará mediante una API REST utilizando HTTP y JSON.
 
----
+La arquitectura se encuentra documentada con mayor detalle en:
 
-## 8. Despliegue
-
-Para el despliegue online del sistema se utilizarán distintas plataformas de acuerdo con las características de cada componente de la aplicación.
-
-El **frontend**, desarrollado con React y TypeScript, será desplegado en **Vercel**. El **backend**, desarrollado con Java y Spring Boot, será alojado en **Render**, donde se ejecutará la API REST de la aplicación. Por último, la base de datos **MySQL** será alojada mediante **Aiven**.
-
-Esta distribución permitirá mantener separados los componentes principales de la arquitectura y establecer la comunicación entre el frontend, la API REST y la base de datos.
+[Arquitectura del sistema](docs/arquitectura.md)
 
 ---
 
-## 9. Plan de trabajo
+## 9. Despliegue propuesto
 
-El desarrollo se organizará en diferentes etapas de acuerdo con los plazos establecidos para el Trabajo Final Integrador.
+Para el despliegue online del sistema se utilizarán servicios independientes para cada componente.
 
-### Etapa 1 — Propuesta y planificación
+| Componente | Tecnología | Despliegue |
+|---|---|---|
+| Frontend | React + TypeScript | Vercel |
+| Backend | Java + Spring Boot | Render |
+| Base de datos | MySQL | Aiven |
 
-* Definición de la problemática.
-* Definición del objetivo del sistema.
-* Delimitación del alcance inicial.
-* Selección del stack tecnológico.
-* Creación del repositorio único de GitHub.
-
-### Etapa 2 — Diseño y arquitectura
-
-* Análisis de requerimientos.
-* Identificación de las entidades principales.
-* Diseño del esquema de base de datos.
-* Definición de módulos.
-* Diseño inicial de las interfaces.
-* Definición de la arquitectura del sistema.
-
-### Etapa 3 — Desarrollo
-
-* Configuración del frontend y backend.
-* Implementación de la base de datos.
-* Desarrollo de la API REST.
-* Desarrollo de las funcionalidades principales.
-* Desarrollo de las interfaces.
-* Integración entre frontend y backend.
-
-### Etapa 4 — Pruebas e integración
-
-* Pruebas de las funcionalidades desarrolladas.
-* Validación de reglas de negocio.
-* Pruebas de disponibilidad y reservas.
-* Corrección de errores.
-* Ajustes de interfaz y experiencia de usuario.
-
-### Etapa 5 — Despliegue y documentación
-
-* Despliegue del sistema.
-* Preparación de la documentación técnica.
-* Actualización del README del repositorio.
-* Elaboración del informe final.
-* Preparación del video demostrativo.
-* Preparación para la defensa del proyecto.
+Esta distribución permitirá mantener separados los principales componentes de la aplicación.
 
 ---
 
-## 10. Repositorio único de GitHub
+## 10. Diseño de base de datos
 
-Todo el código fuente, documentación, configuraciones y archivos relacionados con el proyecto serán almacenados dentro de un único repositorio de GitHub.
+Alquify utilizará un modelo de datos relacional.
 
-**Repositorio:**
-https://github.com/GonzaloTozzi/alquify
+Las principales entidades identificadas son:
 
-La estructura inicial propuesta será:
+- Usuario.
+- Propiedad.
+- Cliente.
+- Huésped.
+- Reserva.
+- Pago.
+
+Además, se utilizará una tabla asociativa `reserva_huesped` para implementar la relación muchos a muchos existente entre reservas y huéspedes.
+
+La documentación correspondiente al diseño de la base de datos se encuentra disponible en:
+
+- [Entidades del sistema](docs/entidades.md)
+- [Diagrama Entidad-Relación](docs/der.md)
+- [Esquema relacional](docs/esquema-relacional.md)
+- [Justificación de identificadores](docs/identificadores.md)
+- [Reglas de negocio](docs/reglas-negocio.md)
+
+El script correspondiente al esquema propuesto se encuentra disponible en:
+
+- [Script de base de datos](database/schema.sql)
+
+---
+
+## 11. Diseño inicial de interfaces
+
+Como parte de la etapa de diseño se realizaron mockups iniciales de las principales interfaces de Alquify.
+
+Los diseños permiten explorar previamente:
+
+- Identidad visual.
+- Navegación general.
+- Inicio de sesión.
+- Vista semanal de ocupación.
+- Gestión de reservas.
+- Creación de reservas.
+- Gestión de propiedades.
+- Gestión de clientes.
+- Gestión de huéspedes.
+- Registro de pagos.
+- Adaptación inicial a dispositivos móviles.
+
+Los mockups representan una propuesta inicial y podrán ser modificados durante la implementación.
+
+[Diseño inicial de interfaces](docs/interfaces.md)
+
+---
+
+## 12. Documentación
+
+La documentación correspondiente al análisis y diseño de Alquify se encuentra almacenada en el directorio `/docs`.
+
+### Análisis y requerimientos
+
+- [Análisis de requerimientos](docs/requerimientos.md)
+- [Reglas de negocio](docs/reglas-negocio.md)
+
+### Base de datos
+
+- [Entidades del sistema](docs/entidades.md)
+- [Diagrama Entidad-Relación](docs/der.md)
+- [Esquema relacional](docs/esquema-relacional.md)
+- [Justificación de identificadores](docs/identificadores.md)
+
+### Diseño del sistema
+
+- [Módulos del sistema](docs/modulos.md)
+- [Arquitectura del sistema](docs/arquitectura.md)
+- [Diseño inicial de interfaces](docs/interfaces.md)
+
+---
+
+## 13. Estructura del repositorio
+
+El proyecto se mantiene dentro de un único repositorio.
 
 ```text
 alquify/
 │
 ├── frontend/
+│
 ├── backend/
+│
 ├── database/
+│   └── schema.sql
+│
 ├── docs/
+│   ├── assets/
+│   │   └── mockups/
+│   │
+│   ├── arquitectura.md
+│   ├── der.md
+│   ├── entidades.md
+│   ├── esquema-relacional.md
+│   ├── identificadores.md
+│   ├── interfaces.md
+│   ├── modulos.md
+│   ├── reglas-negocio.md
+│   └── requerimientos.md
+│
 └── README.md
 ```
 
-Esta estructura podrá evolucionar durante el desarrollo de acuerdo con las necesidades del proyecto, manteniendo siempre toda la información centralizada dentro del mismo repositorio.
+Durante la etapa actual, los directorios `/frontend` y `/backend` se mantienen sin implementación, ya que corresponden a etapas posteriores del proyecto.
 
 ---
 
-## 11. Resultado esperado
+## 14. Plan de trabajo
+
+El desarrollo de Alquify se organiza en diferentes etapas.
+
+### Etapa 1 — Propuesta y planificación
+
+- [x] Definición de la problemática.
+- [x] Definición del objetivo del sistema.
+- [x] Delimitación del alcance inicial.
+- [x] Selección del stack tecnológico.
+- [x] Creación del repositorio único de GitHub.
+
+### Etapa 2 — Diseño y arquitectura
+
+- [x] Análisis de requerimientos.
+- [x] Identificación de las entidades principales.
+- [x] Diseño del esquema de base de datos.
+- [x] Definición de módulos.
+- [x] Diseño inicial de las interfaces.
+- [x] Definición de la arquitectura del sistema.
+
+### Etapa 3 — Desarrollo
+
+- [ ] Configuración del frontend y backend.
+- [ ] Implementación de la base de datos.
+- [ ] Desarrollo de la API REST.
+- [ ] Desarrollo de las funcionalidades principales.
+- [ ] Desarrollo de las interfaces.
+- [ ] Integración entre frontend y backend.
+
+### Etapa 4 — Pruebas e integración
+
+- [ ] Pruebas de las funcionalidades desarrolladas.
+- [ ] Validación de reglas de negocio.
+- [ ] Pruebas de disponibilidad y reservas.
+- [ ] Corrección de errores.
+- [ ] Ajustes de interfaz y experiencia de usuario.
+
+### Etapa 5 — Despliegue y documentación final
+
+- [ ] Despliegue del sistema.
+- [ ] Preparación de la documentación técnica final.
+- [ ] Actualización final del README.
+- [ ] Elaboración del informe final.
+- [ ] Preparación del video demostrativo.
+- [ ] Preparación para la defensa del proyecto.
+
+---
+
+## 15. Estado actual del proyecto
+
+El proyecto se encuentra actualmente en la etapa de **diseño y arquitectura**.
+
+En esta etapa se realizó:
+
+- El análisis de requerimientos.
+- La identificación y definición de entidades.
+- El diseño del modelo de datos.
+- La definición de relaciones y cardinalidades.
+- La definición de reglas de negocio.
+- La justificación de los identificadores utilizados.
+- El diseño del esquema relacional.
+- La definición de módulos.
+- La definición de la arquitectura.
+- El diseño inicial de interfaces.
+- La preparación del script correspondiente al esquema de base de datos.
+
+En esta etapa no se ha iniciado todavía la implementación del frontend ni del backend.
+
+---
+
+## 16. Repositorio
+
+El proyecto se encuentra centralizado en GitHub:
+
+https://github.com/GonzaloTozzi/alquify
+
+---
+
+## 17. Resultado esperado
 
 Como resultado final se espera obtener una aplicación web funcional que permita administrar alquileres temporarios de manera centralizada.
 
-El sistema deberá permitir gestionar las propiedades y su disponibilidad, registrar reservas, clientes, huéspedes y pagos, evitando inconsistencias como la superposición de reservas.
+El sistema deberá permitir gestionar propiedades y su disponibilidad, registrar reservas, clientes, huéspedes y pagos, evitando inconsistencias como la superposición de reservas.
 
-Además, el proyecto contará con su código fuente y documentación centralizados en GitHub y con los componentes requeridos desplegados en un servicio online, permitiendo demostrar el funcionamiento completo de la solución desarrollada.
+Además, el proyecto contará con su código fuente y documentación centralizados en GitHub y con los componentes requeridos desplegados online, permitiendo demostrar el funcionamiento completo de la solución.
