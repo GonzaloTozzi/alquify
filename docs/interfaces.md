@@ -29,7 +29,7 @@ El concepto gráfico del isotipo representa dos reservas sobre una misma línea 
 
 ## Navegación general
 
-Para la versión de escritorio se propone una barra de navegación lateral que permita acceder rápidamente a las principales áreas de la aplicación.
+Se propone una barra de navegación lateral que permita acceder rápidamente a las principales áreas de la aplicación.
 
 Entre los accesos principales se encuentran:
 
@@ -40,8 +40,6 @@ Entre los accesos principales se encuentran:
 - Huéspedes.
 
 La opción seleccionada se destaca visualmente utilizando el color principal de la identidad.
-
-En las propuestas para dispositivos móviles, la navegación se adapta al espacio disponible mediante controles simplificados y navegación inferior cuando corresponde.
 
 ---
 
@@ -57,8 +55,7 @@ La propuesta contiene:
 - Opción para mantener la sesión.
 - Acción para ingresar al sistema.
 - Acceso a recuperación de contraseña.
-
-En escritorio se utiliza una composición dividida entre la identidad de Alquify y el formulario de acceso. En dispositivos móviles ambos elementos se reorganizan verticalmente.
+  
 
 ![Mockup de inicio de sesión](assets/mockups/login.jpeg)
 
@@ -83,7 +80,6 @@ También se indica el momento actual y los espacios disponibles entre reservas.
 
 La vista complementa esta información con próximas entradas, próximas salidas y reservas pendientes.
 
-En dispositivos móviles se utiliza una representación simplificada de la ocupación de cada propiedad para el día seleccionado.
 
 ![Mockup de vista semanal](assets/mockups/semana.jpeg)
 
@@ -216,21 +212,6 @@ Alquify únicamente registrará pagos realizados por medios externos. La aplicac
 
 ---
 
-## Adaptación a dispositivos móviles
-
-Aunque Alquify estará orientado principalmente al uso desde escritorio, los diseños iniciales contemplan la adaptación de las principales operaciones a pantallas de menor tamaño.
-
-En los mockups se exploraron versiones móviles para funcionalidades como:
-
-- Inicio de sesión.
-- Consulta de ocupación.
-- Detalle de reserva.
-- Creación de reservas.
-- Registro de pagos.
-
-La información se reorganiza priorizando las acciones y datos más relevantes para cada operación.
-
----
 
 ## Estado del diseño
 
