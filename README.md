@@ -243,7 +243,6 @@ Los diseños permiten explorar previamente:
 - Gestión de clientes.
 - Gestión de huéspedes.
 - Registro de pagos.
-- Adaptación inicial a dispositivos móviles.
 
 Los mockups representan una propuesta inicial y podrán ser modificados durante la implementación.
 
