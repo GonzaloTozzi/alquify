@@ -1,6 +1,6 @@
 # Diagrama Entidad-Relación
 
-El siguiente diagrama representa el modelo conceptual de datos de Alquify. Se incluyen las entidades principales, algunos de sus atributos más relevantes y las relaciones existentes entre ellas junto con sus respectivas cardinalidades.
+El siguiente diagrama representa el modelo de datos de Alquify. Se incluyen las entidades del sistema, sus atributos, claves primarias y foráneas, y las relaciones existentes entre ellas junto con sus respectivas cardinalidades.
 
 ```mermaid
 erDiagram
@@ -102,4 +102,10 @@ erDiagram
 - Reserva **N:M** Huésped.
 - Reserva **1:N** Pago.
 
-La relación muchos a muchos entre Reserva y Huésped será implementada en el esquema relacional mediante la tabla asociativa `reserva_huesped`.
+La relación muchos a muchos entre Reserva y Huésped se implementará mediante la tabla asociativa `reserva_huesped`.
+
+En las entidades Cliente y Huésped se utilizan claves primarias compuestas. Cliente se identifica mediante la combinación de `id_usuario` y `documento_cuit`, mientras que Huésped se identifica mediante `id_usuario` y `documento`.
+
+Esta decisión permite que un mismo documento pueda estar registrado por distintos usuarios de Alquify, manteniendo al mismo tiempo la independencia de la información administrada por cada cuenta.
+
+La tabla asociativa `reserva_huesped` utiliza como clave primaria la combinación de `id_reserva`, `id_usuario` y `documento_huesped`.
