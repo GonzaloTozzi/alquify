@@ -24,11 +24,15 @@ La cantidad de huéspedes indicada en una reserva deberá ser mayor a cero y no 
 
 Cada usuario administrará sus propias propiedades, clientes y huéspedes.
 
-El backend deberá validar que los datos utilizados en una reserva correspondan al usuario autenticado, evitando el acceso o utilización de información perteneciente a otras cuentas.
+El backend deberá validar que la propiedad, el cliente y los huéspedes utilizados en una reserva correspondan al usuario autenticado, evitando el acceso o utilización de información perteneciente a otras cuentas.
 
 ## RN05 — Registro de pagos
 
 Cada pago deberá estar asociado a una única reserva y su monto deberá ser mayor a cero.
+
+Cada pago se identificará mediante la combinación de la reserva a la que pertenece y la fecha y hora en que fue registrado.
+
+Una reserva podrá tener múltiples pagos registrados.
 
 El total abonado se obtendrá a partir de la suma de los pagos registrados.
 
@@ -40,11 +44,15 @@ De esta manera, estos valores podrán obtenerse a partir de la información exis
 
 Los datos requeridos dependerán del tipo de cliente.
 
-Para los clientes de tipo `PARTICULAR` se utilizarán los datos personales correspondientes.
+Cada cliente deberá contar con un valor de `documento_cuit`, utilizado como identificador.
 
-Para los clientes de tipo `EMPRESA` se utilizarán principalmente la razón social y el CUIT.
+Para los clientes de tipo `PARTICULAR`, `documento_cuit` corresponderá a su documento y se utilizarán los datos personales correspondientes.
+
+Para los clientes de tipo `EMPRESA`, `documento_cuit` corresponderá a su CUIT y se utilizará principalmente la razón social.
 
 ## RN07 — Asociación de huéspedes
+
+Cada huésped deberá contar con un documento, utilizado como identificador.
 
 Una reserva podrá tener varios huéspedes asociados y un huésped podrá participar en diferentes reservas.
 
