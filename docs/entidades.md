@@ -48,6 +48,8 @@ Representa a la persona particular o empresa responsable de una reserva.
 | `email` | Guarda el correo electrónico de contacto del cliente. |
 | `activo` | Permite dejar de utilizar un cliente sin eliminar su historial de reservas. |
 
+La combinación de `id_usuario` y `documento_cuit` conforma la clave primaria de la entidad. De esta manera, un mismo documento o CUIT puede estar registrado por distintos usuarios de Alquify, pero no puede repetirse dentro de los clientes administrados por un mismo usuario.
+
 ## Huésped
 
 Representa a una persona que efectivamente se aloja en una propiedad.
