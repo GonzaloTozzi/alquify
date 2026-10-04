@@ -28,9 +28,9 @@ erDiagram
     }
 
     CLIENTE {
+        int id_usuario PK, FK
         string documento_cuit PK
-        int id_usuario FK
-        string tipo_cliente
+        enum tipo_cliente
         string nombre
         string apellido
         string razon_social
@@ -40,8 +40,8 @@ erDiagram
     }
 
     HUESPED {
+        int id_usuario PK, FK
         string documento PK
-        int id_usuario FK
         string nombre
         string apellido
         string telefono
@@ -51,12 +51,13 @@ erDiagram
 
     RESERVA {
         int id_reserva PK
+        int id_usuario FK
         int id_propiedad FK
         string documento_cuit_cliente FK
         datetime fecha_entrada
         datetime fecha_salida
         int cantidad_huespedes
-        string estado
+        enum estado
         decimal importe_total
         datetime fecha_creacion
         text observaciones
@@ -64,6 +65,7 @@ erDiagram
 
     RESERVA_HUESPED {
         int id_reserva PK, FK
+        int id_usuario PK, FK
         string documento_huesped PK, FK
     }
 
@@ -79,14 +81,16 @@ erDiagram
     USUARIO ||--o{ PROPIEDAD : administra
     USUARIO ||--o{ CLIENTE : registra
     USUARIO ||--o{ HUESPED : registra
+
     PROPIEDAD ||--o{ RESERVA : tiene
     CLIENTE ||--o{ RESERVA : realiza
+
     RESERVA ||--o{ RESERVA_HUESPED : incluye
     HUESPED ||--o{ RESERVA_HUESPED : participa
+
     RESERVA ||--o{ PAGO : recibe
 ```
 
-```
 
 ## Relaciones representadas
 
