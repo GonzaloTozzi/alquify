@@ -216,9 +216,7 @@ Además, se utilizará una tabla asociativa `reserva_huesped` para implementar l
 La documentación correspondiente al diseño de la base de datos se encuentra disponible en:
 
 - [Entidades del sistema](docs/entidades.md)
-- [Diagrama Entidad-Relación](docs/der.md)
-- [Esquema relacional](docs/esquema-relacional.md)
-- [Justificación de identificadores](docs/identificadores.md)
+- [Diagrama Entidad-Relación](docs/DER.md)
 - [Reglas de negocio](docs/reglas-negocio.md)
 
 El script correspondiente al esquema propuesto se encuentra disponible en:
@@ -262,9 +260,8 @@ La documentación correspondiente al análisis y diseño de Alquify se encuentra
 ### Base de datos
 
 - [Entidades del sistema](docs/entidades.md)
-- [Diagrama Entidad-Relación](docs/der.md)
-- [Esquema relacional](docs/esquema-relacional.md)
-- [Justificación de identificadores](docs/identificadores.md)
+- [Diagrama Entidad-Relación](docs/DER.md)
+- [Reglas de negocio](docs/reglas-negocio.md)
 
 ### Diseño del sistema
 
@@ -293,10 +290,8 @@ alquify/
 │   │   └── mockups/
 │   │
 │   ├── arquitectura.md
-│   ├── der.md
+│   ├── DER.md
 │   ├── entidades.md
-│   ├── esquema-relacional.md
-│   ├── identificadores.md
 │   ├── interfaces.md
 │   ├── modulos.md
 │   ├── reglas-negocio.md
@@ -369,8 +364,7 @@ En esta etapa se realizó:
 - El diseño del modelo de datos.
 - La definición de relaciones y cardinalidades.
 - La definición de reglas de negocio.
-- La justificación de los identificadores utilizados.
-- El diseño del esquema relacional.
+- La revisión de los identificadores y claves utilizados en las entidades.
 - La definición de módulos.
 - La definición de la arquitectura.
 - El diseño inicial de interfaces.
