@@ -1,9 +1,13 @@
+-- =====================================================
 -- ALQUIFY - Esquema de Base de Datos
 -- Motor: MySQL
 -- =====================================================
 
 DROP DATABASE IF EXISTS alquify_db;
-CREATE DATABASE alquify_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE alquify_db
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
 USE alquify_db;
 
 -- =====================================================
@@ -19,6 +23,7 @@ CREATE TABLE usuario (
     activo BOOLEAN NOT NULL DEFAULT TRUE
 ) ENGINE=InnoDB;
 
+
 -- =====================================================
 -- 2. TABLA: propiedad
 -- =====================================================
@@ -32,16 +37,25 @@ CREATE TABLE propiedad (
     descripcion TEXT,
     imagen_url VARCHAR(255),
     activa BOOLEAN NOT NULL DEFAULT TRUE,
-    CONSTRAINT fk_propiedad_usuario FOREIGN KEY (id_usuario) 
-        REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE
+
+    CONSTRAINT chk_propiedad_capacidad
+        CHECK (capacidad > 0),
+
+    CONSTRAINT fk_propiedad_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id_usuario)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+
 -- =====================================================
--- 3. TABLA: cliente (PK Natural: documento_cuit)
+-- 3. TABLA: cliente
+-- PK Compuesta: (id_usuario, documento_cuit)
 -- =====================================================
 CREATE TABLE cliente (
-    documento_cuit VARCHAR(30) PRIMARY KEY,
     id_usuario INT NOT NULL,
+    documento_cuit VARCHAR(30) NOT NULL,
     tipo_cliente ENUM('PARTICULAR', 'EMPRESA') NOT NULL,
     nombre VARCHAR(100),
     apellido VARCHAR(100),
@@ -49,60 +63,111 @@ CREATE TABLE cliente (
     telefono VARCHAR(30),
     email VARCHAR(150),
     activo BOOLEAN NOT NULL DEFAULT TRUE,
-    CONSTRAINT fk_cliente_usuario FOREIGN KEY (id_usuario) 
-        REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE
+
+    PRIMARY KEY (id_usuario, documento_cuit),
+
+    CONSTRAINT fk_cliente_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id_usuario)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+
 -- =====================================================
--- 4. TABLA: huesped (PK Natural: documento)
+-- 4. TABLA: huesped
+-- PK Compuesta: (id_usuario, documento)
 -- =====================================================
 CREATE TABLE huesped (
-    documento VARCHAR(30) PRIMARY KEY,
     id_usuario INT NOT NULL,
+    documento VARCHAR(30) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     telefono VARCHAR(30),
     email VARCHAR(150),
     observaciones TEXT,
-    CONSTRAINT fk_huesped_usuario FOREIGN KEY (id_usuario) 
-        REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE
+
+    PRIMARY KEY (id_usuario, documento),
+
+    CONSTRAINT fk_huesped_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id_usuario)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB;
+
 
 -- =====================================================
 -- 5. TABLA: reserva
 -- =====================================================
 CREATE TABLE reserva (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
     id_propiedad INT NOT NULL,
     documento_cuit_cliente VARCHAR(30) NOT NULL,
     fecha_entrada DATETIME NOT NULL,
     fecha_salida DATETIME NOT NULL,
     cantidad_huespedes INT NOT NULL,
-    estado ENUM('PENDIENTE', 'CONFIRMADA', 'CANCELADA', 'FINALIZADA') NOT NULL DEFAULT 'PENDIENTE',
+    estado ENUM(
+        'PENDIENTE',
+        'CONFIRMADA',
+        'CANCELADA',
+        'FINALIZADA'
+    ) NOT NULL DEFAULT 'PENDIENTE',
     importe_total DECIMAL(10,2) NOT NULL,
     fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     observaciones TEXT,
-    CONSTRAINT fk_reserva_propiedad FOREIGN KEY (id_propiedad) 
-        REFERENCES propiedad(id_propiedad) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_reserva_cliente FOREIGN KEY (documento_cuit_cliente) 
-        REFERENCES cliente(documento_cuit) ON DELETE RESTRICT ON UPDATE CASCADE
+
+    CONSTRAINT chk_reserva_fechas
+        CHECK (fecha_salida > fecha_entrada),
+
+    CONSTRAINT chk_reserva_cantidad_huespedes
+        CHECK (cantidad_huespedes > 0),
+
+    CONSTRAINT chk_reserva_importe
+        CHECK (importe_total >= 0),
+
+    CONSTRAINT fk_reserva_propiedad
+        FOREIGN KEY (id_propiedad)
+        REFERENCES propiedad(id_propiedad)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+
+    CONSTRAINT fk_reserva_cliente
+        FOREIGN KEY (id_usuario, documento_cuit_cliente)
+        REFERENCES cliente(id_usuario, documento_cuit)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+
 -- =====================================================
--- 6. TABLA ASOCIATIVA: reserva_huesped (PK Compuesta)
+-- 6. TABLA ASOCIATIVA: reserva_huesped
 -- =====================================================
 CREATE TABLE reserva_huesped (
     id_reserva INT NOT NULL,
+    id_usuario INT NOT NULL,
     documento_huesped VARCHAR(30) NOT NULL,
-    PRIMARY KEY (id_reserva, documento_huesped),
-    CONSTRAINT fk_rh_reserva FOREIGN KEY (id_reserva) 
-        REFERENCES reserva(id_reserva) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_rh_huesped FOREIGN KEY (documento_huesped) 
-        REFERENCES huesped(documento) ON DELETE RESTRICT ON UPDATE CASCADE
+
+    PRIMARY KEY (id_reserva, id_usuario, documento_huesped),
+
+    CONSTRAINT fk_rh_reserva
+        FOREIGN KEY (id_reserva)
+        REFERENCES reserva(id_reserva)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT fk_rh_huesped
+        FOREIGN KEY (id_usuario, documento_huesped)
+        REFERENCES huesped(id_usuario, documento)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+
 -- =====================================================
--- 7. TABLA: pago (Entidad Débil - PK Compuesta)
+-- 7. TABLA: pago
+-- Entidad débil - PK Compuesta
 -- =====================================================
 CREATE TABLE pago (
     id_reserva INT NOT NULL,
@@ -111,7 +176,15 @@ CREATE TABLE pago (
     metodo_pago VARCHAR(50) NOT NULL,
     concepto VARCHAR(100),
     observaciones TEXT,
+
     PRIMARY KEY (id_reserva, fecha_pago),
-    CONSTRAINT fk_pago_reserva FOREIGN KEY (id_reserva) 
-        REFERENCES reserva(id_reserva) ON DELETE RESTRICT ON UPDATE CASCADE
+
+    CONSTRAINT chk_pago_monto
+        CHECK (monto > 0),
+
+    CONSTRAINT fk_pago_reserva
+        FOREIGN KEY (id_reserva)
+        REFERENCES reserva(id_reserva)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB;
