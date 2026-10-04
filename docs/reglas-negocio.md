@@ -44,15 +44,19 @@ De esta manera, estos valores podrán obtenerse a partir de la información exis
 
 Los datos requeridos dependerán del tipo de cliente.
 
-Cada cliente deberá contar con un valor de `documento_cuit`, utilizado como identificador.
+Cada cliente será identificado dentro de la información administrada por un usuario mediante la combinación de `id_usuario` y `documento_cuit`.
 
-Para los clientes de tipo `PARTICULAR`, `documento_cuit` corresponderá a su documento y se utilizarán los datos personales correspondientes.
+Para los clientes de tipo `PARTICULAR`, `documento_cuit` corresponderá a su documento de identidad y se utilizarán los datos personales correspondientes.
 
 Para los clientes de tipo `EMPRESA`, `documento_cuit` corresponderá a su CUIT y se utilizará principalmente la razón social.
 
+Un mismo documento o CUIT podrá estar registrado por distintos usuarios de Alquify, pero no podrá repetirse dentro de los clientes pertenecientes a un mismo usuario.
+
 ## RN07 — Asociación de huéspedes
 
-Cada huésped deberá contar con un documento, utilizado como identificador.
+Cada huésped será identificado dentro de la información administrada por un usuario mediante la combinación de `id_usuario` y `documento`.
+
+Un mismo documento podrá estar registrado por distintos usuarios de Alquify, pero no podrá repetirse dentro de los huéspedes pertenecientes a un mismo usuario.
 
 Una reserva podrá tener varios huéspedes asociados y un huésped podrá participar en diferentes reservas.
 
