@@ -38,8 +38,8 @@ Representa a la persona particular o empresa responsable de una reserva.
 
 | Atributo | Descripción |
 |---|---|
-| `documento_cuit` | Identificador del cliente y clave primaria. Para clientes particulares corresponde a su documento y para empresas a su CUIT. |
-| `id_usuario` | Referencia al usuario de Alquify que registró al cliente. |
+| `id_usuario` | Referencia al usuario de Alquify que registró al cliente. Forma parte de la clave primaria compuesta. |
+| `documento_cuit` | Identificador natural del cliente. Para particulares corresponde a su documento y para empresas a su CUIT. Forma parte de la clave primaria compuesta. |
 | `tipo_cliente` | Permite distinguir si el cliente es `PARTICULAR` o `EMPRESA`. |
 | `nombre` | Nombre del cliente cuando se trata de una persona particular. |
 | `apellido` | Apellido del cliente cuando se trata de una persona particular. |
@@ -54,13 +54,15 @@ Representa a una persona que efectivamente se aloja en una propiedad.
 
 | Atributo | Descripción |
 |---|---|
-| `documento` | Documento identificatorio del huésped y clave primaria de la entidad. |
-| `id_usuario` | Referencia al usuario de Alquify que registró al huésped. |
+| `id_usuario` | Referencia al usuario de Alquify que registró al huésped. Forma parte de la clave primaria compuesta. |
+| `documento` | Documento identificatorio del huésped. Forma parte de la clave primaria compuesta. |
 | `nombre` | Permite identificar a la persona alojada. |
 | `apellido` | Completa la identificación del huésped. |
 | `telefono` | Medio de contacto con el huésped. |
 | `email` | Correo electrónico de contacto, si corresponde. |
 | `observaciones` | Permite registrar comentarios o información adicional relevante sobre el huésped. |
+
+La combinación de `id_usuario` y `documento` conforma la clave primaria de la entidad. Esto permite que un mismo huésped pueda ser registrado por diferentes usuarios, evitando duplicados dentro de la información administrada por un mismo usuario.
 
 ## Reserva
 
@@ -69,8 +71,9 @@ Representa la reserva de una propiedad durante un período determinado.
 | Atributo | Descripción |
 |---|---|
 | `id_reserva` | Identificador único de cada reserva y clave primaria de la entidad. |
+| `id_usuario` | Identifica al usuario al que corresponde la reserva y permite referenciar correctamente al cliente mediante su clave compuesta. |
 | `id_propiedad` | Referencia a la propiedad reservada. |
-| `documento_cuit_cliente` | Referencia al cliente responsable de la reserva. |
+| `documento_cuit_cliente` | Identifica al cliente responsable de la reserva. Junto con `id_usuario`, conforma la clave foránea que referencia al cliente. |
 | `fecha_entrada` | Indica la fecha y hora en que comienza la estadía y permite calcular disponibilidad. |
 | `fecha_salida` | Indica la fecha y hora en que termina la estadía. |
 | `cantidad_huespedes` | Registra cuántas personas se alojarán y permite controlar la capacidad de la propiedad. |
@@ -88,9 +91,10 @@ La relación entre Reserva y Huésped es de muchos a muchos (`N:M`), por lo que 
 | Atributo | Descripción |
 |---|---|
 | `id_reserva` | Referencia a la reserva correspondiente. Forma parte de la clave primaria compuesta. |
-| `documento_huesped` | Referencia al documento del huésped. Forma parte de la clave primaria compuesta. |
+| `id_usuario` | Identifica al usuario propietario del registro del huésped. Forma parte de la clave primaria compuesta y de la referencia al huésped. |
+| `documento_huesped` | Documento del huésped asociado a la reserva. Forma parte de la clave primaria compuesta y, junto con `id_usuario`, permite referenciar al huésped correspondiente. |
 
-La combinación de `id_reserva` y `documento_huesped` conforma la clave primaria de la tabla, evitando que un mismo huésped sea asociado más de una vez a una misma reserva.
+La combinación de `id_reserva`, `id_usuario` y `documento_huesped` conforma la clave primaria de la tabla asociativa. De esta manera se identifica de forma única la participación de un huésped en una reserva.
 
 ## Pago
 
