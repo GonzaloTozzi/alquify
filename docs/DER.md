@@ -3,159 +3,89 @@
 El siguiente diagrama representa el modelo conceptual de datos de Alquify. Se incluyen las entidades principales, algunos de sus atributos más relevantes y las relaciones existentes entre ellas junto con sus respectivas cardinalidades.
 
 ```mermaid
-flowchart TB
+erDiagram
 
-    %% =========================
-    %% ENTIDADES
-    %% =========================
+    USUARIO {
+        int id_usuario PK
+        string nombre
+        string apellido
+        string email
+        string password_hash
+        datetime fecha_creacion
+        boolean activo
+    }
 
-    USUARIO[Usuario]
-    PROPIEDAD[Propiedad]
-    CLIENTE[Cliente]
-    RESERVA[Reserva]
-    HUESPED[Huésped]
-    PAGO[Pago]
+    PROPIEDAD {
+        int id_propiedad PK
+        int id_usuario FK
+        string nombre
+        string direccion
+        string ciudad
+        int capacidad
+        text descripcion
+        string imagen_url
+        boolean activa
+    }
 
+    CLIENTE {
+        string documento_cuit PK
+        int id_usuario FK
+        string tipo_cliente
+        string nombre
+        string apellido
+        string razon_social
+        string telefono
+        string email
+        boolean activo
+    }
 
-    %% =========================
-    %% RELACIONES
-    %% =========================
+    HUESPED {
+        string documento PK
+        int id_usuario FK
+        string nombre
+        string apellido
+        string telefono
+        string email
+        text observaciones
+    }
 
-    ADMINISTRA{Administra}
-    REGISTRA_CLIENTE{Registra}
-    REGISTRA_HUESPED{Registra}
-    TIENE_RESERVA{Tiene}
-    REALIZA{Realiza}
-    INCLUYE{Incluye}
-    TIENE_PAGO{Tiene}
+    RESERVA {
+        int id_reserva PK
+        int id_propiedad FK
+        string documento_cuit_cliente FK
+        datetime fecha_entrada
+        datetime fecha_salida
+        int cantidad_huespedes
+        string estado
+        decimal importe_total
+        datetime fecha_creacion
+        text observaciones
+    }
 
+    RESERVA_HUESPED {
+        int id_reserva PK, FK
+        string documento_huesped PK, FK
+    }
 
-    %% =========================
-    %% ATRIBUTOS
-    %% =========================
+    PAGO {
+        int id_reserva PK, FK
+        datetime fecha_pago PK
+        decimal monto
+        string metodo_pago
+        string concepto
+        text observaciones
+    }
 
-    ID_USUARIO([id_usuario])
-    EMAIL_USUARIO([email])
+    USUARIO ||--o{ PROPIEDAD : administra
+    USUARIO ||--o{ CLIENTE : registra
+    USUARIO ||--o{ HUESPED : registra
+    PROPIEDAD ||--o{ RESERVA : tiene
+    CLIENTE ||--o{ RESERVA : realiza
+    RESERVA ||--o{ RESERVA_HUESPED : incluye
+    HUESPED ||--o{ RESERVA_HUESPED : participa
+    RESERVA ||--o{ PAGO : recibe
+```
 
-    ID_PROPIEDAD([id_propiedad])
-    NOMBRE_PROPIEDAD([nombre])
-    CAPACIDAD([capacidad])
-
-    ID_CLIENTE([id_cliente])
-    TIPO_CLIENTE([tipo_cliente])
-
-    ID_RESERVA([id_reserva])
-    FECHA_ENTRADA([fecha_entrada])
-    FECHA_SALIDA([fecha_salida])
-    ESTADO([estado])
-
-    ID_HUESPED([id_huesped])
-    DOCUMENTO([documento])
-
-    ID_PAGO([id_pago])
-    MONTO([monto])
-    FECHA_PAGO([fecha_pago])
-
-
-    %% =========================
-    %% ATRIBUTOS - USUARIO
-    %% =========================
-
-    ID_USUARIO --- USUARIO
-    EMAIL_USUARIO --- USUARIO
-
-
-    %% =========================
-    %% USUARIO - PROPIEDAD
-    %% =========================
-
-    USUARIO ---|1| ADMINISTRA
-    ADMINISTRA ---|N| PROPIEDAD
-
-    ID_PROPIEDAD --- PROPIEDAD
-    NOMBRE_PROPIEDAD --- PROPIEDAD
-    CAPACIDAD --- PROPIEDAD
-
-
-    %% =========================
-    %% USUARIO - CLIENTE
-    %% =========================
-
-    USUARIO ---|1| REGISTRA_CLIENTE
-    REGISTRA_CLIENTE ---|N| CLIENTE
-
-    ID_CLIENTE --- CLIENTE
-    TIPO_CLIENTE --- CLIENTE
-
-
-    %% =========================
-    %% USUARIO - HUESPED
-    %% =========================
-
-    USUARIO ---|1| REGISTRA_HUESPED
-    REGISTRA_HUESPED ---|N| HUESPED
-
-    ID_HUESPED --- HUESPED
-    DOCUMENTO --- HUESPED
-
-
-    %% =========================
-    %% PROPIEDAD - RESERVA
-    %% =========================
-
-    PROPIEDAD ---|1| TIENE_RESERVA
-    TIENE_RESERVA ---|N| RESERVA
-
-
-    %% =========================
-    %% CLIENTE - RESERVA
-    %% =========================
-
-    CLIENTE ---|1| REALIZA
-    REALIZA ---|N| RESERVA
-
-
-    %% =========================
-    %% RESERVA - HUESPED
-    %% =========================
-
-    RESERVA ---|N| INCLUYE
-    INCLUYE ---|M| HUESPED
-
-
-    %% =========================
-    %% ATRIBUTOS - RESERVA
-    %% =========================
-
-    ID_RESERVA --- RESERVA
-    FECHA_ENTRADA --- RESERVA
-    FECHA_SALIDA --- RESERVA
-    ESTADO --- RESERVA
-
-
-    %% =========================
-    %% RESERVA - PAGO
-    %% =========================
-
-    RESERVA ---|1| TIENE_PAGO
-    TIENE_PAGO ---|N| PAGO
-
-    ID_PAGO --- PAGO
-    MONTO --- PAGO
-    FECHA_PAGO --- PAGO
-
-
-    %% =========================
-    %% ESTILOS
-    %% =========================
-
-    classDef entidad fill:#dff3f1,stroke:#222,stroke-width:1.5px,color:#111
-    classDef relacion fill:#ffd6d6,stroke:#222,stroke-width:1.5px,color:#111
-    classDef atributo fill:#e3f0ff,stroke:#222,stroke-width:1.5px,color:#111
-
-    class USUARIO,PROPIEDAD,CLIENTE,RESERVA,HUESPED,PAGO entidad
-    class ADMINISTRA,REGISTRA_CLIENTE,REGISTRA_HUESPED,TIENE_RESERVA,REALIZA,INCLUYE,TIENE_PAGO relacion
-    class ID_USUARIO,EMAIL_USUARIO,ID_PROPIEDAD,NOMBRE_PROPIEDAD,CAPACIDAD,ID_CLIENTE,TIPO_CLIENTE,ID_RESERVA,FECHA_ENTRADA,FECHA_SALIDA,ESTADO,ID_HUESPED,DOCUMENTO,ID_PAGO,MONTO,FECHA_PAGO atributo
 ```
 
 ## Relaciones representadas
